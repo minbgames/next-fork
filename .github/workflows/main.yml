@@ -1,0 +1,29 @@
+name: 'Release'
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - uses: 'actions/checkout@v4'
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          service_account: 'my-service-account@minb-proj.iam.gserviceaccount.com' # ⭐️ 본인 프로젝트에 맞도록 변경 필요 ⭐️
+          workload_identity_provider: 'projects/983300521952/locations/global/workloadIdentityPools/github/providers/my-repo' # ⭐️ 본인 프로젝트에 맞도록 변경 필요 ⭐️
+
+      - id: 'deploy'
+        uses: 'google-github-actions/deploy-appengine@v2'
+
+      # Example of using the output
+      - id: 'test'
+        run: 'curl "${{ steps.deploy.outputs.version_url }}"'
