@@ -14,12 +14,11 @@ jobs:
 
     steps:
       - uses: 'actions/checkout@v4'
-
       - id: 'auth'
         uses: 'google-github-actions/auth@v2'
         with:
-          service_account: 'my-service-account@minb-proj.iam.gserviceaccount.com' # ⭐️ 본인 프로젝트에 맞도록 변경 필요 ⭐️
-          workload_identity_provider: 'projects/983300521952/locations/global/workloadIdentityPools/github/providers/my-repo' # ⭐️ 본인 프로젝트에 맞도록 변경 필요 ⭐️
+          project_id: 'minb-proj'
+          workload_identity_provider: 'projects/983300521952/locations/global/workloadIdentityPools/github/providers/my-repo'
 
       - id: 'deploy'
         uses: 'google-github-actions/deploy-appengine@v2'
