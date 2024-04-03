@@ -14,14 +14,17 @@ jobs:
 
     steps:
       - uses: 'actions/checkout@v4'
+
       - id: 'auth'
         uses: 'google-github-actions/auth@v2'
         with:
-          project_id: 'minb-proj'
+          service_account: 'my-service-account@minb-proj.iam.gserviceaccount.com'
           workload_identity_provider: 'projects/983300521952/locations/global/workloadIdentityPools/github/providers/my-repo'
 
       - id: 'deploy'
         uses: 'google-github-actions/deploy-appengine@v2'
+        with:
+          project_id: "minb-proj" # Ex: 1011234567890
 
       # Example of using the output
       - id: 'test'
